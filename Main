@@ -1,0 +1,71 @@
+// Define a Teaspoon contract object (simulated)
+const TeaspoonContract = {
+    methods: {
+        getInbox: function(callback) {
+            // Simulated method to fetch inbox messages
+            const inboxMessages = ["Message 1", "Message 2", "Message 3"];
+            callback(null, inboxMessages);
+        },
+        getOutbox: function(callback) {
+            // Simulated method to fetch outbox messages
+            const outboxMessages = ["Message A", "Message B", "Message C"];
+            callback(null, outboxMessages);
+        },
+        sendMessage: function(recipientAddress, messageContent, callback) {
+            // Simulated method to send a message
+            console.log("Sending message:", messageContent, "to", recipientAddress);
+            // Simulated success
+            callback(null, "Transaction hash");
+        }
+    }
+};
+
+// Function to display inbox messages
+function displayInbox() {
+    TeaspoonContract.methods.getInbox(function(error, result) {
+        if (!error) {
+            result.forEach(function(message) {
+                // Display each message in the inbox
+                console.log(message);
+            });
+        } else {
+            console.error('Error fetching inbox messages:', error);
+        }
+    });
+}
+
+// Function to display outbox messages
+function displayOutbox() {
+    TeaspoonContract.methods.getOutbox(function(error, result) {
+        if (!error) {
+            result.forEach(function(message) {
+                // Display each message in the outbox
+                console.log(message);
+            });
+        } else {
+            console.error('Error fetching outbox messages:', error);
+        }
+    });
+}
+
+// Function to send a message
+function sendMessage() {
+    var recipientAddress = "exampleRecipientAddress";
+    var messageContent = "Example message content";
+
+    // Call Teaspoon smart contract to send message
+    TeaspoonContract.methods.sendMessage(recipientAddress, messageContent, function(error, transactionHash) {
+        if (!error) {
+            console.log('Message sent:', transactionHash);
+            // Display success message or update UI
+        } else {
+            console.error('Error sending message:', error);
+            // Display error message or handle error
+        }
+    });
+}
+
+// Example usage:
+displayInbox();
+displayOutbox();
+sendMessage();
